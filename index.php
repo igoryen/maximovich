@@ -1,11 +1,11 @@
 <?php
-    include '/text/pairs.php';
-    include '/text/pairs2.php';
-    include '/text/pangrams.php';
-    include '/text/yat.php';
-    
-    $textarea = $_POST ? htmlentities($_POST['txtcomment']) : "" ;
-    $textarea = explode("\n", $textarea);
+include '/text/pairs.php';
+include '/text/pairs2.php';
+include '/text/pangrams.php';
+include '/text/yat.php';
+
+$textarea = $_POST ? htmlentities($_POST['txtcomment']) : "";
+$textarea = explode("\n", $textarea);
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,49 +21,77 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <style>
+            .body_container {
+                margin: 2em;
+                padding-bottom: 3em;
+            }
+            .text_panels_container {
+                width: 90%; 
+                margin-left: auto;
+                margin-right: auto;
+            }
             .panel {
                 display: inline-block;
                 width: 45%;
                 float: left;
             }
+            .input.panel {
+                color: lightgray;
+            }
         </style>
     </head>
     <body>
-        <h1>Maximovich</h1>
-        <div class="text_panels">
-            <div class="input panel">
-                <ol>
-                    <?php 
-                    foreach ($textarea as $item) {
-                        echo "<li>" . $item . "</li>";
-                    }
-                    ?>
-                </ol>
+        <?php
+        // macros
+        function input($items) {
+            //echo sizeof($textarea);
+            foreach ($items as $item) {
+                echo "<li>" . $item . "</li>";
+            }
+        }
+
+        function output($items) {
+
+            function non_empty($el) {
+                return(!($el == " " || $el == ""));
+            }
+
+            $items = array_filter($items, "non_empty");
+            //var_dump($textarea);
+            foreach ($items as $item) {
+                global $pairs;
+                //$item = strtr($item, $pairs2);
+                $item = strtr($item, $pairs);
+                echo "<li>" . $item . "</li>";
+            }
+        }
+        ?>
+        <div class="body_container">
+            <a href="http://www.igoryen.com">Back</a>
+            <h1>Maximovich</h1>
+            <?php if (sizeof($textarea) > 1) { ?>
+                <div class="text_panels_container">
+                    <div class="input panel">
+                        <ol>
+                            <?php input($textarea); ?>
+                        </ol>
+                    </div>
+                </div>
+                <div class="ouput panel">
+                    <ol>
+                        <?php output($textarea); ?>
+                    </ol>
+                </div>
+            <?php } ?>
+
+            <div class="form_container">
+                <div class="form">
+                    <form method="POST" action="/">
+                        <textarea name="txtcomment" style="width:100%; height: 70px;" maxlength="5000"></textarea><br /><br />
+                        <input type="submit" class="button" style="float: right; cursor:pointer;" value="Convert">
+                    </form>
+                </div>
             </div>
-            <div class="ouput panel">
-                
-                <ol>
-                    <?php
-                   
-                    function non_empty($el) {
-                        return(!($el == " " || $el == ""));
-                    }
-                    $textarea = array_filter($textarea, "non_empty");
-                    //var_dump($textarea);
-                    foreach ($textarea as $item) {
-                        //$item = strtr($item, $pairs2);
-                        $item = strtr($item, $pairs);
-                        echo "<li>" . $item . "</li>";
-                    }
-                    ?>
-                </ol>
-            </div>
-        </div>
-        <div class="form">
-            <form method="POST" action="/">
-                <textarea name="txtcomment" style="width:100%; height: 70px;" maxlength="5000"></textarea><br /><br />
-                <input type="submit" class="button" style="float: right; cursor:pointer;" value="Convert">
-            </form>
         </div>
     </body>
 </html>

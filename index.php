@@ -4,8 +4,32 @@ include '/text/pairs2.php';
 include '/text/pangrams.php';
 include '/text/yat.php';
 
-$textarea = $_POST ? htmlentities($_POST['txtcomment']) : "";
+$textarea = (isset($_POST['txtcomment'])) ? htmlentities($_POST['txtcomment']) : "";
 $textarea = explode("\n", $textarea);
+
+// macros
+function input($items) {
+    //echo sizeof($textarea);
+    foreach ($items as $item) {
+        echo "<li>" . $item . "</li>";
+    }
+}
+
+function output($items) {
+
+    function non_empty($el) {
+        return(!($el == " " || $el == ""));
+    }
+
+    $items = array_filter($items, "non_empty");
+    //var_dump($textarea);
+    foreach ($items as $item) {
+        global $pairs;
+        //$item = strtr($item, $pairs2);
+        $item = strtr($item, $pairs);
+        echo "<li>" . $item . "</li>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,49 +65,21 @@ $textarea = explode("\n", $textarea);
         </style>
     </head>
     <body>
-        <?php
-        // macros
-        function input($items) {
-            //echo sizeof($textarea);
-            foreach ($items as $item) {
-                echo "<li>" . $item . "</li>";
-            }
-        }
-
-        function output($items) {
-
-            function non_empty($el) {
-                return(!($el == " " || $el == ""));
-            }
-
-            $items = array_filter($items, "non_empty");
-            //var_dump($textarea);
-            foreach ($items as $item) {
-                global $pairs;
-                //$item = strtr($item, $pairs2);
-                $item = strtr($item, $pairs);
-                echo "<li>" . $item . "</li>";
-            }
-        }
-        ?>
         <div class="body_container">
             <a href="http://www.igoryen.com">Back</a>
             <h1>Maximovich</h1>
+            
             <?php if (sizeof($textarea) > 0) { ?>
-                <div class="text_panels_container">
-                    <div class="input panel">
-                        <ol>
-                            <?php input($textarea); ?>
-                        </ol>
-                    </div>
+            <div class="text_panels_container">
+                <div class="input panel">
+                    <ol><?php input($textarea); ?></ol>
                 </div>
                 <div class="ouput panel">
-                    <ol>
-                        <?php output($textarea); ?>
-                    </ol>
+                    <ol><?php output($textarea); ?></ol>
                 </div>
-            <?php } else {echo "nothing";} ?>
-
+            </div>
+            <?php } ?>
+            
             <div class="form_container">
                 <div class="form">
                     <form method="POST">
@@ -95,3 +91,4 @@ $textarea = explode("\n", $textarea);
         </div>
     </body>
 </html>
+

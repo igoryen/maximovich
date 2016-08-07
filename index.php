@@ -69,7 +69,7 @@ $textarea = explode("\n", $textarea);
         <div class="body_container">
             <a href="http://www.igoryen.com">Back</a>
             <h1>Maximovich</h1>
-            <?php if (sizeof($textarea) > 1) { ?>
+            <?php if (sizeof($textarea) > 0) { ?>
                 <div class="text_panels_container">
                     <div class="input panel">
                         <ol>
@@ -82,11 +82,11 @@ $textarea = explode("\n", $textarea);
                         <?php output($textarea); ?>
                     </ol>
                 </div>
-            <?php } ?>
+            <?php } else {echo "nothing";} ?>
 
             <div class="form_container">
                 <div class="form">
-                    <form method="POST" action="/">
+                    <form method="POST">
                         <textarea name="txtcomment" style="width:100%; height: 70px;" maxlength="5000"></textarea><br /><br />
                         <input type="submit" class="button" style="float: right; cursor:pointer;" value="Convert">
                     </form>

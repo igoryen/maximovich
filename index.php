@@ -23,6 +23,7 @@ echo "<pre>";
 var_dump($textarea);
 echo "</pre>";
 
+global $pairs;
 $pairs = array_filter($pairs, "filled");
 echo "<pre>";
 var_dump($pairs);

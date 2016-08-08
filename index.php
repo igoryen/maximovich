@@ -30,9 +30,10 @@ function output($items) {
     //var_dump($textarea);
     foreach ($items as $item) {
         global $pairs;
+        var_dump($item);
         //$item = strtr($item, $pairs2);
         $item = strtr($item, $pairs);
-        var_dump($item);
+        
         echo "<li>" . $item . "</li>";
     }
 }

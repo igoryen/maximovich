@@ -1,50 +1,25 @@
 <?php
 include 'config.php';
-//echo "site root is: " . SITE_ROOT . "<br>";
-//include SITE_ROOT . "/text/pairs.php";
-//include SITE_ROOT . "/text/pairs2.php";
-//include SITE_ROOT . "/text/pangrams.php";
-//include SITE_ROOT . "/text/yat.php";
-
-if ((include $_SERVER['DOCUMENT_ROOT'] . '/text/pairs.php') == TRUE) {
-    echo 'OK, pairs are included';
-} else {
-    echo 'No, pairs are not included';
-}
-
-echo "<pre>";
-echo '$pairs';
-var_dump($pairs);
-echo "</pre>";
+include $_SERVER['DOCUMENT_ROOT'] . "/text/pairs.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/text/pairs2.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/text/pangrams.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/text/yat.php";
+include $_SERVER['DOCUMENT_ROOT'] . '/text/pairs.php';
 
 $textarea = (isset($_POST['txtcomment'])) ? htmlentities($_POST['txtcomment']) : "";
 $textarea = explode("\n", $textarea);
-// var_dump($textarea);
+
 // macros
 
 function filled($el) {
     $el = trim($el);
-    //$retval = (isset($el) AND (!empty($el)) && ($el != "\n") AND ($el != " "));
     $retval = (isset($el) AND ( !empty($el)));
-    //echo $retval;
     return $retval;
 }
 
 $textarea = array_filter($textarea, "filled");
-echo "<pre>";
-echo '$pairs';
-var_dump($textarea);
-echo "</pre>";
-
-global $pairs;
-$pairs = array_filter($pairs, "filled");
-echo "<pre>";
-echo '$pairs';
-var_dump($pairs);
-echo "</pre>";
 
 function input($items) {
-    //echo sizeof($textarea);
     foreach ($items as $item) {
         echo "<li>" . trim($item) . "</li>";
     }
@@ -52,20 +27,10 @@ function input($items) {
 
 function output($items) {
    
-    foreach ($items as $key => $value) {
+    foreach ($items as $item) {
         global $pairs;
-        //var_dump($key);
-        //$item = strtr($item, $pairs2);
-        $value = strtr($value, $pairs);
-        if($value) {
-            //var_dump($item);
-            echo "<li>" . $key ." => " . $value . "</li>";
-        }
-        else {
-            //var_dump($item);
-            echo 'replace_pairs contains a key which is an empty string ("")';
-            echo "<li>" . $key ." => " . $value . "</li>";
-        }
+        $item = strtr($item, $pairs);
+        echo "<li>" . $item . "</li>";
     }
 }
 ?>

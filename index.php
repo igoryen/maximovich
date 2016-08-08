@@ -1,9 +1,9 @@
 <?php
-include_once 'config.php';
-include SITE_ROOT . "/text/pairs.php";
-include SITE_ROOT . "/text/pairs2.php";
-include SITE_ROOT . "/text/pangrams.php";
-include SITE_ROOT . "/text/yat.php";
+require_once 'config.php';
+require_once SITE_ROOT . "/text/pairs.php";
+require_once SITE_ROOT . "/text/pairs2.php";
+require_once SITE_ROOT . "/text/pangrams.php";
+require_once SITE_ROOT . "/text/yat.php";
 
 $textarea = (isset($_POST['txtcomment'])) ? htmlentities($_POST['txtcomment']) : "";
 $textarea = explode("\n", $textarea);

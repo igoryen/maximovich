@@ -5,6 +5,11 @@ include SITE_ROOT . "/text/pairs2.php";
 include SITE_ROOT . "/text/pangrams.php";
 include SITE_ROOT . "/text/yat.php";
 
+echo "<pre>";
+echo '$pairs';
+var_dump($pairs);
+echo "</pre>";
+
 $textarea = (isset($_POST['txtcomment'])) ? htmlentities($_POST['txtcomment']) : "";
 $textarea = explode("\n", $textarea);
 // var_dump($textarea);
@@ -20,12 +25,14 @@ function filled($el) {
 
 $textarea = array_filter($textarea, "filled");
 echo "<pre>";
+echo '$pairs';
 var_dump($textarea);
 echo "</pre>";
 
 global $pairs;
 $pairs = array_filter($pairs, "filled");
 echo "<pre>";
+echo '$pairs';
 var_dump($pairs);
 echo "</pre>";
 

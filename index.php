@@ -18,7 +18,9 @@ function filled($el) {
 }
 
 $textarea = array_filter($textarea, "filled");
-
+echo "<pre>";
+ var_dump($textarea);
+ echo "</pre>";
 function input($items) {
     //echo sizeof($textarea);
     foreach ($items as $item) {
@@ -27,18 +29,21 @@ function input($items) {
 }
 
 function output($items) {
-    //var_dump($textarea);
-    foreach ($items as $item) {
+   
+    foreach ($items as $key => $value) {
         global $pairs;
-        //var_dump($item);
+        //var_dump($key);
         //$item = strtr($item, $pairs2);
-        $item = strtr($item, $pairs);
-        if(!strtr($item, $pairs)) {
-            echo "<li>" . $item . "</li>";
-        }
-        else {
-            echo 'replace_pairs contains a key which is an empty string ("")';
-        }
+        
+        //if(!$value) {
+            //var_dump($item);
+            echo "<li>" . $key ." => " . strtr($value, $pairs) . "</li>";
+        //}
+        //else {
+            //var_dump($item);
+            //echo 'replace_pairs contains a key which is an empty string ("")';
+            //echo "<li>" . $key ." => " . $value . "</li>";
+        //}
     }
 }
 ?>

@@ -1,9 +1,15 @@
 <?php
-include_once 'config.php';
-include SITE_ROOT . "/text/pairs.php";
+include 'config.php';
+//include SITE_ROOT . "/text/pairs.php";
 include SITE_ROOT . "/text/pairs2.php";
 include SITE_ROOT . "/text/pangrams.php";
 include SITE_ROOT . "/text/yat.php";
+
+if ((include SITE_ROOT . '/text/pairs.php') == TRUE) {
+    echo 'OK, pairs are included';
+} else {
+    echo 'No, pairs are not included';
+}
 
 echo "<pre>";
 echo '$pairs';

@@ -17,16 +17,16 @@ function filled($el) {
     return $retval;
 }
 
+$textarea = array_filter($textarea, "filled");
+
 function input($items) {
     //echo sizeof($textarea);
-    $items = array_filter($items, "filled");
     foreach ($items as $item) {
         echo "<li>" . trim($item) . "</li>";
     }
 }
 
 function output($items) {
-    $items = array_filter($items, "filled");
     //var_dump($textarea);
     foreach ($items as $item) {
         global $pairs;

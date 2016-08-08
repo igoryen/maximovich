@@ -32,6 +32,7 @@ function output($items) {
         global $pairs;
         //$item = strtr($item, $pairs2);
         $item = strtr($item, $pairs);
+        var_dump($item);
         echo "<li>" . $item . "</li>";
     }
 }

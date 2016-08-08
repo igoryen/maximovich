@@ -6,6 +6,8 @@ include $_SERVER['DOCUMENT_ROOT'] . "/text/pangrams.php";
 include $_SERVER['DOCUMENT_ROOT'] . "/text/yat.php";
 include $_SERVER['DOCUMENT_ROOT'] . '/text/pairs.php';
 
+$explanation = "A converter from the modern Ukrainian orthography to the system that is inspired by the system made by the Russian scientist Mikhail Maximovich (1804 — 1873), who wanted to use the traditional spelling but use diacritics to show the changed pronunciation. The goal is to help the Russian speakers to read Ukrainian.";
+$use = "Paste a modern Ukrainian text into the text area and press 'Convert'";
 $textarea = (isset($_POST['txtcomment'])) ? htmlentities($_POST['txtcomment']) : "";
 $textarea = explode("\n", $textarea);
 
@@ -52,6 +54,12 @@ function output($items) {
                 margin: 2em;
                 padding-bottom: 3em;
             }
+            .explanation {
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+                color: gray;
+            }
             .text_panels_container {
                 width: 90%; 
                 margin-left: auto;
@@ -71,6 +79,10 @@ function output($items) {
         <div class="body_container">
             <a href="http://www.igoryen.com">Back</a>
             <h1>Maximovich</h1>
+            <div class="explanation">
+                <p><?php echo $explanation; ?></p>
+                <p><?php echo $use; ?></p>
+            </div>
             
             <?php if (sizeof($textarea) > 0) { ?>
             <div class="text_panels_container">

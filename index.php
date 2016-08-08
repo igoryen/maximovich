@@ -6,22 +6,27 @@ include '/text/yat.php';
 
 $textarea = (isset($_POST['txtcomment'])) ? htmlentities($_POST['txtcomment']) : "";
 $textarea = explode("\n", $textarea);
-
+// var_dump($textarea);
 // macros
+
+function filled($el) {
+    $el = trim($el);
+    //$retval = (isset($el) AND (!empty($el)) && ($el != "\n") AND ($el != " "));
+    $retval = (isset($el) AND ( !empty($el)));
+    //echo $retval;
+    return $retval;
+}
+
 function input($items) {
     //echo sizeof($textarea);
+    $items = array_filter($items, "filled");
     foreach ($items as $item) {
-        echo "<li>" . $item . "</li>";
+        echo "<li>" . trim($item) . "</li>";
     }
 }
 
 function output($items) {
-
-    function non_empty($el) {
-        return(!($el == " " || $el == ""));
-    }
-
-    $items = array_filter($items, "non_empty");
+    $items = array_filter($items, "filled");
     //var_dump($textarea);
     foreach ($items as $item) {
         global $pairs;
@@ -83,7 +88,7 @@ function output($items) {
             <div class="form_container">
                 <div class="form">
                     <form method="POST">
-                        <textarea name="txtcomment" style="width:100%; height: 70px;" maxlength="5000"></textarea><br /><br />
+                        <textarea name="txtcomment" style="width:100%; height: 70px;" maxlength="5000"><?php //var_dump($pangrams);?></textarea><br /><br />
                         <input type="submit" class="button" style="float: right; cursor:pointer;" value="Convert">
                     </form>
                 </div>

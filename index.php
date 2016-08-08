@@ -1,12 +1,12 @@
 <?php
 include 'config.php';
-echo "site root is: " . SITE_ROOT . "<br>";
+//echo "site root is: " . SITE_ROOT . "<br>";
 //include SITE_ROOT . "/text/pairs.php";
-include SITE_ROOT . "/text/pairs2.php";
-include SITE_ROOT . "/text/pangrams.php";
-include SITE_ROOT . "/text/yat.php";
+//include SITE_ROOT . "/text/pairs2.php";
+//include SITE_ROOT . "/text/pangrams.php";
+//include SITE_ROOT . "/text/yat.php";
 
-if ((include SITE_ROOT . '/text/pairs.php') == TRUE) {
+if ((include $_SERVER['DOCUMENT_ROOT'] . '/text/pairs.php') == TRUE) {
     echo 'OK, pairs are included';
 } else {
     echo 'No, pairs are not included';

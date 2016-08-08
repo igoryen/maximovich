@@ -30,17 +30,15 @@ function output($items) {
     //var_dump($textarea);
     foreach ($items as $item) {
         global $pairs;
-        var_dump($item);
+        //var_dump($item);
         //$item = strtr($item, $pairs2);
         $item = strtr($item, $pairs);
         if(!strtr($item, $pairs)) {
             echo "<li>" . $item . "</li>";
         }
         else {
-            var_dump($item);
+            echo 'replace_pairs contains a key which is an empty string ("")';
         }
-        
-        
     }
 }
 ?>

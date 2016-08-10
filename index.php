@@ -1,20 +1,5 @@
 <?php
 include 'config.php';
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/chars.php";
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/endings.php";
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/numerals.php";
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/prefixes.php";
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/prepositions.php";
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/pronouns.php";
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/stems.php";
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/suffixes.php";
-//
-//
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/pairs.php";
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/pairs2.php";
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/pangrams.php";
-//include $_SERVER['DOCUMENT_ROOT'] . "/text/yat.php";
-//include $_SERVER['DOCUMENT_ROOT'] . '/text/pairs.php';
 
 $explanation = "A converter from the modern Ukrainian orthography to the system that is inspired by the system made by the Russian scientist Mikhail Maximovich (1804 — 1873), who wanted to use the traditional spelling but use diacritics to show the changed pronunciation. The goal is to help the Russian speakers to read Ukrainian.";
 $use = "Paste a modern Ukrainian text into the text area and press 'Convert'";
@@ -23,20 +8,9 @@ $textarea = explode("\n", $textarea);
 
 $path = $_SERVER['DOCUMENT_ROOT'] . "/text/";
 
-//$adverbs = $path . "adverbs.txt";
-//$chars = $_SERVER['DOCUMENT_ROOT'] . "/text/chars.txt";
-//$endings = $_SERVER['DOCUMENT_ROOT'] . "/text/endings.txt";
-//$numerals = $_SERVER['DOCUMENT_ROOT'] . "/text/numerals.txt";
-//$prefixes = $_SERVER['DOCUMENT_ROOT'] . "/text/prefixes.txt";
-//$prepositions = $_SERVER['DOCUMENT_ROOT'] . "/text/prepositions.txt";
-//$pronouns = $_SERVER['DOCUMENT_ROOT'] . "/text/pronouns.txt";
-//$stems = $_SERVER['DOCUMENT_ROOT'] . "/text/stems.txt";
-//$suffixes = $_SERVER['DOCUMENT_ROOT'] . "/text/suffixes.txt";
-
 function getAry($ary) {
     global $path;
     $myFile = $path . $ary. ".txt";
-    //echo 'myFile - ' . $myFile;
     $array = array();
     foreach (file($myFile) as $line) {
         list($key, $value) = explode(' ', $line, 2) + array(NULL, NULL);
@@ -45,12 +19,10 @@ function getAry($ary) {
             $array[$key] = trim($value);
         }
     }
-    //var_dump($array);
     return $array;
 }
 
 // macros
-
 function filled($el) {
     $el = trim($el);
     $retval = (isset($el) AND ( !empty($el)));
@@ -68,8 +40,6 @@ function input($items) {
 function output($items) {
    
     foreach ($items as $item) {
-        //global $chars, $endings, $numerals, $prefixes, $prepositions, $pronouns, $stems, $suffixes, $pairs;
-        
         $item = strtr($item, getAry("prepositions")); // #10
         $item = strtr($item, getAry("stems")); // #20
         

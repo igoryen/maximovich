@@ -4,7 +4,6 @@ include 'config.php';
 $explanation = "A converter from the modern Ukrainian orthography to the system that is inspired by the system made by the Russian scientist Mikhail Maximovich (1804 — 1873), who wanted to use the traditional spelling but use diacritics to show the changed pronunciation. The goal is to help the Russian speakers to read Ukrainian.";
 $use = "Paste a modern Ukrainian text into the text area and press 'Convert'";
 $textarea = (isset($_POST['txtcomment'])) ? htmlentities($_POST['txtcomment']) : "";
-//$textarea = explode("\n", $textarea);
 $textarea = preg_split( '@(?<=\.|!|\?)@', $textarea );
 
 $path = $_SERVER['DOCUMENT_ROOT'] . "/text/";
@@ -75,6 +74,9 @@ function output($items) {
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <style>
+            body {
+                background: url('img/embroidery05.jpg') repeat;
+            }
             .body_container {
                 margin: 2em;
                 padding-bottom: 3em;

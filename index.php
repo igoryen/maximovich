@@ -1,64 +1,27 @@
 <?php
-include 'config.php';
+//include 'config.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/classes/aaa.php';
 
 $explanation = "A converter from the modern Ukrainian orthography to the system that is inspired by the system made by the Russian scientist Mikhail Maximovich (1804 — 1873), who wanted to use the traditional spelling but use diacritics to show the changed pronunciation. The goal is to help the Russian speakers to read Ukrainian.";
 $use = "Paste a modern Ukrainian text into the text area and press 'Convert'";
 $textarea = (isset($_POST['txtcomment'])) ? htmlentities($_POST['txtcomment']) : "";
-$textarea = preg_split( '@(?<=\.|!|\?)@', $textarea );
+$textarea = preg_split('@(?<=\.|!|\?)@', $textarea);
 
 $path = $_SERVER['DOCUMENT_ROOT'] . "/text/";
 
-function getAry($ary) {
-    global $path;
-    $myFile = $path . $ary. ".txt";
-    $array = array();
-    foreach (file($myFile) as $line) {
-        list($key, $value) = explode(' ', $line, 2) + array(NULL, NULL);
+$speech_parts = [
+    "prepositions",
+    "adverbs",
+    "stems",
+    "endings",
+    "numerals",
+    "prefixes",
+    "pronouns",
+    "suffixes",
+    "chars"
+];
 
-        if ($value !== NULL) {
-            $array[$key] = trim($value);
-        }
-    }
-    return $array;
-}
-
-// macros
-function filled($el) {
-    $el = trim($el);
-    $retval = (isset($el) AND ( !empty($el)));
-    return $retval;
-}
-
-$textarea = array_filter($textarea, "filled");
-
-function input($items) {
-    foreach ($items as $item) {
-        echo "<li>" . trim($item) . "</li>";
-    }
-}
-
-function output($items) {
-   
-    foreach ($items as $item) {
-        $item = strtr($item, getAry("prepositions")); // #10
-        $item = strtr($item, getAry("stems")); // #20
-        
-        $item = strtr($item, getAry("endings"));
-        $item = strtr($item, getAry("numerals"));
-        $item = strtr($item, getAry("prefixes"));
-        
-        $item = strtr($item, getAry("pronouns"));
-        // stems before suffixes
-        
-        $item = strtr($item, getAry("suffixes")); // #30
-        
-        // lastly translate single chars
-        $item = strtr($item, getAry("chars"));
-        //$item = strtr($item, $pairs);
-        
-        echo "<li>" . $item . "</li>";
-    }
-}
+$aaa = new Aaa($path, $textarea, $speech_parts);
 ?>
 <!DOCTYPE html>
 <html>
@@ -110,22 +73,22 @@ function output($items) {
                 <p><?php echo $explanation; ?></p>
                 <p><?php echo $use; ?></p>
             </div>
-            
+
             <?php if (sizeof($textarea) > 0) { ?>
-            <div class="text_panels_container">
-                <div class="input panel">
-                    <ol><?php input($textarea); ?></ol>
+                <div class="text_panels_container">
+                    <div class="input panel">
+                        <ol><?php $aaa->input(); ?></ol>
+                    </div>
+                    <div class="ouput panel">
+                        <ol><?php $aaa->output(); ?></ol>
+                    </div>
                 </div>
-                <div class="ouput panel">
-                    <ol><?php output($textarea); ?></ol>
-                </div>
-            </div>
             <?php } ?>
-            
+
             <div class="form_container">
                 <div class="form">
                     <form method="POST">
-                        <textarea name="txtcomment" style="width:100%; height: 70px;" maxlength="5000"><?php //var_dump($pangrams);?></textarea><br /><br />
+                        <textarea name="txtcomment" style="width:100%; height: 70px;" maxlength="5000"><?php //var_dump($pangrams); ?></textarea><br /><br />
                         <input type="submit" class="button" style="float: right; cursor:pointer;" value="Convert">
                     </form>
                 </div>

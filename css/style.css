@@ -1,0 +1,46 @@
+body {
+  /*background: url('../img/embroidery05.jpg') repeat;*/
+  background: url('../img/embroidery05.jpg') repeat;
+}
+.body_container {
+  margin: 2em;
+  padding-bottom: 3em;
+}
+.form_container {
+  margin: 0 auto;
+  width: 80%;
+}
+.explanation {
+  color: gray;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+.text_panels_container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.panel {
+  display: inline-block;
+  padding: 1% 1% 1% 0;
+  width: 49%;
+}
+.panel.incoming {
+  color: lightgray;
+  float: left;
+}
+.panel.outcoming {
+  float: right;
+}
+textarea {
+  display: block;
+  height: 70px;
+  width: 100%;
+}
+input {
+  cursor: pointer;
+  display: block;
+  float: right;
+  width: 100%;
+}

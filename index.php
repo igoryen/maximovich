@@ -4,8 +4,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/classes/aaa.php';
 
 $explanation = "A converter from the modern Ukrainian orthography to the system that is inspired by the system made by the Russian scientist Mikhail Maximovich (1804 — 1873), who wanted to use the traditional spelling but use diacritics to show the changed pronunciation. The goal is to help the Russian speakers to read Ukrainian.";
 $use = "Paste a modern Ukrainian text into the text area and press 'Convert'";
-$textarea = (isset($_POST['txtcomment'])) ? htmlentities($_POST['txtcomment']) : "";
-$textarea = preg_split('@(?<=\.|!|\?)@', $textarea);
+$textarea_string = (isset($_POST['txtcomment'])) ? htmlentities($_POST['txtcomment']) : "";
+$textarea_string = trim($textarea_string);
+$textarea = preg_split('@(?<=\.|!|\?)@', $textarea_string);
 
 $path = $_SERVER['DOCUMENT_ROOT'] . "/text/";
 
@@ -49,7 +50,7 @@ $aaa = new Aaa($path, $textarea, $speech_parts);
                 <p><?php echo $use; ?></p>
             </div>
 
-            <?php if (sizeof($textarea) > 0) { ?>
+            <?php if (strlen($textarea_string) > 0) { ?>
                 <div class="text_panels_container">
                     <div class="panel incoming">
                         <ol><?php $aaa->input(); ?></ol>

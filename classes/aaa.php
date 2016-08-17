@@ -98,6 +98,8 @@ class Aaa {
     function process_word($word){
         // if the word is capitalized
         if($this->starts_with_upper($word)) {
+            // cyrilize the word
+            $word = $this->cyrilize($word);
             // de-capitalize the word
             $word = $this->mb_lcfirst($word, "utf8");
             // run the word through speech part arrays
@@ -138,5 +140,24 @@ class Aaa {
             // print out the ready sentence
             echo "<li>" . $ready_to_print . "</li>";
         }
+    }
+    function cyrilize($word) {
+        // split the word into single characters
+        $chars = str_split($word);
+        $cyrilized = [];
+        foreach($chars as $char) {
+            // if the char is latcapi
+            if(ord($char) == 73) {
+                // replace the latcapi with cyrcapi
+                $char = 'І';
+            }
+            elseif(ord($char) == 105) { // if the char is latsmali
+                // replace the latsmali with cyrsmali
+                $char = 'і';
+            }
+            array_push($cyrilized, $char);
+        }
+        return implode("", $cyrilized);
+            
     }
 }
